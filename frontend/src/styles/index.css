@@ -1,0 +1,289 @@
+@import "tailwindcss";
+
+/* ============================================
+   SARA'S BEAUTY & BRIDAL STUDIO — DESIGN SYSTEM
+   ============================================ */
+
+@theme {
+  /* Colors — Cream/Warm Palette */
+  --color-cream-50: #FDFBF7;
+  --color-cream-100: #F8F3ED;
+  --color-cream-200: #EFE3D5;
+  --color-cream-300: #E5D3BF;
+  --color-cream-400: #D8C0A8;
+
+  /* Colors — Gold */
+  --color-gold-300: #D4B87A;
+  --color-gold-400: #C9A96A;
+  --color-gold-500: #B8955A;
+  --color-gold-600: #A07D45;
+  --color-gold-700: #886835;
+
+  /* Colors — Dark */
+  --color-dark-800: #2A2623;
+  --color-dark-900: #191715;
+  --color-dark-950: #0F0E0D;
+
+  /* Colors — Rose */
+  --color-rose-100: #F0DDD8;
+  --color-rose-200: #E4CBC4;
+  --color-rose-300: #D8B9B0;
+  --color-rose-400: #C9A49A;
+
+  /* Colors — Forest */
+  --color-forest-500: #1D8A6E;
+  --color-forest-600: #176B57;
+  --color-forest-700: #12523F;
+
+  /* Fonts */
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Custom Font Sizes */
+  --text-display: 4.5rem;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+
+  --text-heading-1: 3.5rem;
+  --text-heading-1--line-height: 1.15;
+  --text-heading-1--letter-spacing: -0.02em;
+
+  --text-heading-2: 2.5rem;
+  --text-heading-2--line-height: 1.2;
+  --text-heading-2--letter-spacing: -0.01em;
+
+  --text-heading-3: 1.875rem;
+  --text-heading-3--line-height: 1.3;
+
+  --text-heading-4: 1.5rem;
+  --text-heading-4--line-height: 1.4;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.7;
+
+  /* Shadows */
+  --shadow-soft: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 4px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 30px -5px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 10px 40px -10px rgba(0, 0, 0, 0.12), 0 20px 50px -15px rgba(0, 0, 0, 0.08);
+  --shadow-gold: 0 4px 20px -5px rgba(184, 149, 90, 0.3);
+
+  /* Animations */
+  --animate-fade-up: fadeUp 0.6s ease-out forwards;
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+  --animate-slide-in-right: slideInRight 0.5s ease-out forwards;
+  --animate-scale-in: scaleIn 0.4s ease-out forwards;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(8px); opacity: 0.3; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(184,149,90,0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(184,149,90,0); }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(212,184,122,0.15), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-gentle-pulse {
+  animation: gentlePulse 2.5s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeSlow {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee-slow {
+  display: flex;
+  width: max-content;
+  animation: marqueeSlow 45s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-slow:hover {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-dark-900);
+  background-color: var(--color-cream-100);
+  overflow-x: hidden;
+}
+
+/* Headings default to serif */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--color-gold-500);
+  color: white;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream-200);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-500);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-600);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Gold decorative line */
+.gold-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-gold-500), var(--color-gold-300));
+}
+
+.gold-line-center {
+  width: 60px;
+  height: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(90deg, var(--color-gold-500), var(--color-gold-300));
+}
+
+/* Glass effect for navbar */
+.glass {
+  background: rgba(248, 243, 237, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Premium card hover */
+.premium-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.premium-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Image zoom on hover */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.img-zoom:hover img {
+  transform: scale(1.08);
+}
+
+/* Gradient text */
+.gradient-text-gold {
+  background: linear-gradient(135deg, var(--color-gold-500) 0%, var(--color-gold-300) 50%, var(--color-gold-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section padding */
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/* Container */
+.container-custom {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-custom {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
