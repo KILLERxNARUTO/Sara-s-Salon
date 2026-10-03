@@ -120,8 +120,8 @@ Website-1-Sara/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/SelvaKumaran-G/Website-1-Sara-.git
-cd Website-1-Sara-
+git clone https://github.com/KILLERxNARUTO/Sara-s-Salon.git
+cd Sara-s-Salon
 ```
 
 ---
@@ -189,9 +189,9 @@ The application is pre-configured with root and directory-level `vercel.json` ma
 
 ### Method 1: Deploy from GitHub (Recommended)
 1. Fork or push this repository to your GitHub account:
-   `https://github.com/SelvaKumaran-G/Website-1-Sara-`
+   `https://github.com/KILLERxNARUTO/Sara-s-Salon`
 2. Go to your **[Vercel Dashboard](https://vercel.com/dashboard)** and click **"Add New..."** > **"Project"**.
-3. Import the `Website-1-Sara-` repository.
+3. Import the `Sara-s-Salon` repository.
 4. Set the project configuration:
    - **Framework Preset**: `Vite`
    - **Root Directory**: `frontend` *(or leave as `./` since root `vercel.json` handles build automatically)*
