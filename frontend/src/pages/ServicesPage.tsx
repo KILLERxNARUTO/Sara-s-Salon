@@ -26,7 +26,7 @@ const BEAUTY_VIDEOS = [
     category: 'Bridal & Makeup',
     videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-putting-on-makeup-42654-large.mp4',
     poster: '/images/parlour_interior_bridal.jpg',
-    badge: '✨ Bespoke Bridal'
+    badge: 'Bespoke Bridal'
   },
   {
     id: 'hair',
@@ -34,7 +34,7 @@ const BEAUTY_VIDEOS = [
     category: 'Hair Care',
     videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-hairdresser-styling-the-hair-of-a-client-41484-large.mp4',
     poster: '/images/services/hair.jpg',
-    badge: '💇 Hair Artistry'
+    badge: 'Hair Artistry'
   },
   {
     id: 'facial',
@@ -42,7 +42,7 @@ const BEAUTY_VIDEOS = [
     category: 'Skincare',
     videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-receiving-a-facial-treatment-41804-large.mp4',
     poster: '/images/services/facial.jpg',
-    badge: '🌸 Facial Glow'
+    badge: 'Facial Therapy'
   },
   {
     id: 'spa',
@@ -50,7 +50,7 @@ const BEAUTY_VIDEOS = [
     category: 'Spa & Wellness',
     videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-masseuse-giving-a-facial-massage-to-a-woman-41805-large.mp4',
     poster: '/images/services/spa.jpg',
-    badge: '🧖‍♀️ Deep Spa'
+    badge: 'Deep Spa'
   }
 ];
 

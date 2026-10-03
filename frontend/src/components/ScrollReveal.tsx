@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { motion, useInView } from 'framer-motion';
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -15,60 +16,71 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   children,
   direction = 'up',
   delay = 0,
-  duration = 700,
-  distance = 40,
+  duration = 1.1, // Luxurious slow functioning reveal
+  distance = 36,
   className = '',
   threshold = 0.15,
   once = true,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = React.useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, {
+    once,
+    amount: threshold,
+  });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          if (once) observer.disconnect();
-        } else if (!once) {
-          setIsVisible(false);
-        }
-      },
-      { threshold }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [threshold, once]);
-
-  const getInitialTransform = () => {
+  const getVariants = () => {
     switch (direction) {
-      case 'up': return `translateY(${distance}px)`;
-      case 'down': return `translateY(-${distance}px)`;
-      case 'left': return `translateX(${distance}px)`;
-      case 'right': return `translateX(-${distance}px)`;
-      case 'scale': return 'scale(0.9)';
-      case 'fade': return 'none';
-      default: return `translateY(${distance}px)`;
+      case 'up':
+        return {
+          hidden: { opacity: 0, y: distance, filter: 'blur(4px)' },
+          visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
+        };
+      case 'down':
+        return {
+          hidden: { opacity: 0, y: -distance, filter: 'blur(4px)' },
+          visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
+        };
+      case 'left':
+        return {
+          hidden: { opacity: 0, x: distance, filter: 'blur(4px)' },
+          visible: { opacity: 1, x: 0, filter: 'blur(0px)' },
+        };
+      case 'right':
+        return {
+          hidden: { opacity: 0, x: -distance, filter: 'blur(4px)' },
+          visible: { opacity: 1, x: 0, filter: 'blur(0px)' },
+        };
+      case 'scale':
+        return {
+          hidden: { opacity: 0, scale: 0.94, filter: 'blur(6px)' },
+          visible: { opacity: 1, scale: 1, filter: 'blur(0px)' },
+        };
+      case 'fade':
+      default:
+        return {
+          hidden: { opacity: 0, filter: 'blur(8px)' },
+          visible: { opacity: 1, filter: 'blur(0px)' },
+        };
     }
   };
 
+  const variants = getVariants();
+
   return (
-    <div
+    <motion.div
       ref={ref}
-      className={className}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'none' : getInitialTransform(),
-        transition: `opacity ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms, transform ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}ms`,
-        willChange: 'opacity, transform',
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'}
+      variants={variants}
+      transition={{
+        duration,
+        delay: delay / 1000,
+        ease: [0.16, 1, 0.3, 1], // Couture slow ease-out
       }}
+      className={`will-change-transform ${className}`}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 

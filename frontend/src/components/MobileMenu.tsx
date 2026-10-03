@@ -37,17 +37,17 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
           </div>
 
           {/* Navigation Links */}
-          <nav className="flex flex-col gap-4 py-8">
+          <nav className="flex flex-col gap-5 py-8">
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.href}
                 to={link.href}
                 onClick={onClose}
                 className={({ isActive }) =>
-                  `text-xl font-serif py-1 transition-colors ${
+                  `text-base uppercase tracking-[0.14em] font-medium py-1.5 transition-colors ${
                     isActive
-                      ? 'text-[#D4B87A] font-semibold pl-2 border-l-2 border-[#D4B87A]'
-                      : 'text-[#EFE3D5] hover:text-white'
+                      ? 'text-[#D4B87A] font-semibold pl-3 border-l-2 border-[#D4B87A]'
+                      : 'text-[#EFE3D5]/80 hover:text-white'
                   }`
                 }
               >

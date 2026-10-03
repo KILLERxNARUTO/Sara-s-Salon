@@ -5,19 +5,19 @@ import { Sparkles, ShieldCheck, HeartHandshake, ArrowRight, Eye } from 'lucide-r
 
 const STUDIO_HIGHLIGHTS = [
   {
-    image: '/images/parlour_interior_main.jpg',
-    title: 'Main Salon Floor',
-    caption: 'Gold arched vanity stations with premium hydraulic chairs',
+    image: '/images/luxury_salon_sanctuary.jpg',
+    title: 'Main Luxury Atelier & Vanity Suite',
+    caption: 'Gold backlit arches, travertine marble & plush velvet stations',
   },
   {
-    image: '/images/parlour_interior_bridal.jpg',
-    title: 'Private Bridal Suite',
-    caption: 'Hollywood vanity, crystal chandelier & velvet lounge',
+    image: '/images/luxury_bridal_editorial.jpg',
+    title: 'Private Bridal Couture Suite',
+    caption: 'Dedicated royal sanctuary for brides, jewellery setting & saree pleating',
   },
   {
-    image: '/images/parlour_interior_spa.jpg',
-    title: 'Spa & Skincare Pod',
-    caption: 'Bamboo acoustic walls with aromatherapy diffusers',
+    image: '/images/luxury_skincare_facial.jpg',
+    title: 'Skincare Rejuvenation Pod',
+    caption: 'Tranquil ambiance, gold leaf peptide therapy & botanical hydra facials',
   },
 ];
 
@@ -111,33 +111,23 @@ export const AboutPreviewSection: React.FC = () => {
               Located at Mahalakshmi Nagar, Main Road, Guduvanchery, Sara's Beauty & Bridal Studio was established with a singular vision: to offer a private, welcoming sanctuary where women and children receive premium salon and bridal services with unwavering attention to hygiene, comfort, and aesthetics.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div
-                className="flex items-start gap-3 p-4 rounded-xl bg-white border border-[#E5D3BF] shadow-sm hover:shadow-md transition-shadow"
-              >
-                <ShieldCheck className="w-5 h-5 text-[#B8955A] mt-0.5 shrink-0" />
-                <div>
-                  <h4 className="text-sm font-semibold text-[#191715] mb-1">
-                    Ladies & Kids Exclusive
-                  </h4>
-                  <p className="text-xs text-[#2A2623]/70 font-light">
-                    Complete privacy and utmost comfort for every client.
-                  </p>
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-[#E5D3BF]">
+              <div className="space-y-1">
+                <span className="text-xs uppercase tracking-wider text-[#B8955A] font-semibold block">
+                  Ladies & Kids Sanctuary
+                </span>
+                <p className="text-xs text-[#2A2623]/75 font-light leading-relaxed">
+                  Complete seclusion, comfortable private rooms, and female stylists.
+                </p>
               </div>
 
-              <div
-                className="flex items-start gap-3 p-4 rounded-xl bg-white border border-[#E5D3BF] shadow-sm hover:shadow-md transition-shadow"
-              >
-                <Sparkles className="w-5 h-5 text-[#B8955A] mt-0.5 shrink-0" />
-                <div>
-                  <h4 className="text-sm font-semibold text-[#191715] mb-1">
-                    Premium Formulations
-                  </h4>
-                  <p className="text-xs text-[#2A2623]/70 font-light">
-                    Top brands like O3+, Lotus, Rica, and organic herbal oils.
-                  </p>
-                </div>
+              <div className="space-y-1">
+                <span className="text-xs uppercase tracking-wider text-[#B8955A] font-semibold block">
+                  Certified Formulations
+                </span>
+                <p className="text-xs text-[#2A2623]/75 font-light leading-relaxed">
+                  Genuine international products including O3+, Lotus, Rica, and herbal extracts.
+                </p>
               </div>
             </div>
 

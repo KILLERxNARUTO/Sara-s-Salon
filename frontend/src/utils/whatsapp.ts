@@ -22,24 +22,24 @@ export const generateGeneralInquiryLink = (): string => {
 export const generateBookingWhatsAppLink = (data: WhatsAppBookingData): string => {
   let message = `Hello Sara's Beauty & Bridal Studio! I'd like to book an appointment.\n\n`;
   if (data.serviceName) {
-    message += `✨ Service: ${data.serviceName}\n`;
+    message += `Service: ${data.serviceName}\n`;
   }
   if (data.categoryName) {
-    message += `📂 Category: ${data.categoryName}\n`;
+    message += `Category: ${data.categoryName}\n`;
   }
   if (data.customerName) {
-    message += `👤 Name: ${data.customerName}\n`;
+    message += `Customer Name: ${data.customerName}\n`;
   }
   if (data.date) {
-    message += `📅 Date: ${data.date}\n`;
+    message += `Date: ${data.date}\n`;
   }
   if (data.time) {
-    message += `⏰ Preferred Time: ${data.time}\n`;
+    message += `Preferred Time: ${data.time}\n`;
   }
   if (data.notes) {
-    message += `💬 Note: ${data.notes}\n`;
+    message += `Notes: ${data.notes}\n`;
   }
-  message += `\nPlease confirm availability. Thank you!`;
+  message += `\nPlease confirm availability. Thank you.`;
   return generateWhatsAppLink(message);
 };
 

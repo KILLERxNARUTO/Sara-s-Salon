@@ -17,6 +17,8 @@ build/
 **/.env
 **/.env.*
 !**/.env.example
+auth_info_baileys/
+**/auth_info_baileys/
 
 # Logs
 logs/

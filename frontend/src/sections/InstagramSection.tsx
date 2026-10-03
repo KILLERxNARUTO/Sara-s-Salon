@@ -1,27 +1,43 @@
 import React from 'react';
-import { ExternalLink, Sparkles } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { Instagram } from '@/components/icons/Instagram';
 import { BUSINESS_INFO } from '@/data/constants';
 import { Button } from '@/components/Button';
 
 export const InstagramSection: React.FC = () => {
-  const posts = [
-    { label: 'Bridal Saree Draping Perfection', tag: '#BridalSaree' },
-    { label: 'Intricate Bridal Henna Pattern', tag: '#SaraMehendi' },
-    { label: 'O3+ Illuminating Glow Session', tag: '#SkinGlow' },
-    { label: 'Layer Cut & Soft Waves Styling', tag: '#HairArtistry' },
+  const visuals = [
+    {
+      image: '/images/luxury_bridal_editorial.jpg',
+      label: 'Haute Bridal Couture',
+      tag: '#BridalTransformation'
+    },
+    {
+      image: '/images/luxury_skincare_facial.jpg',
+      label: 'Gold Hydra-Facial Therapy',
+      tag: '#AestheticSkincare'
+    },
+    {
+      image: '/images/luxury_hair_styling.jpg',
+      label: 'Precision Waves & Keratin',
+      tag: '#HairArtistry'
+    },
+    {
+      image: '/images/luxury_bridal_mehendi.jpg',
+      label: 'Intricate Royal Henna Art',
+      tag: '#BridalMehendi'
+    },
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-[#191715] text-[#F8F3ED] border-t border-[#2A2623]">
+    <section className="py-20 md:py-28 bg-[#141210] text-[#F8F3ED] border-t border-[#2A2623]">
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10 text-center md:text-left">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12 text-center md:text-left">
           <div className="space-y-1">
-            <span className="text-xs uppercase font-semibold tracking-[0.25em] text-[#D4B87A] flex items-center justify-center md:justify-start gap-2">
-              <Instagram className="w-4 h-4 text-[#D4B87A]" />
-              <span>Follow Our Beauty Journey</span>
+            <span className="text-xs uppercase font-medium tracking-[0.25em] text-[#D4B87A] flex items-center justify-center md:justify-start gap-2">
+              <Instagram className="w-3.5 h-3.5 text-[#D4B87A]" />
+              <span>Studio Visual Journal</span>
             </span>
-            <h2 className="font-serif text-2xl md:text-3xl font-normal text-white">
+            <h2 className="text-2xl md:text-3xl font-normal text-white tracking-tight">
               {BUSINESS_INFO.instagram_handle}
             </h2>
           </div>
@@ -32,30 +48,37 @@ export const InstagramSection: React.FC = () => {
             variant="outline"
             size="md"
             icon={<ExternalLink className="w-4 h-4" />}
+            className="!border-[#D4B87A]/40 !text-[#EFE3D5] hover:!bg-[#D4B87A]/15"
           >
             Follow on Instagram
           </Button>
         </div>
 
-        {/* Visual Instagram Card Previews */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {posts.map((post, idx) => (
+        {/* Open Photography Strip — Real Editorial Photos, No Boxes */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {visuals.map((item, idx) => (
             <a
               key={idx}
               href={BUSINESS_INFO.instagram_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative rounded-2xl overflow-hidden bg-[#2A2623] border border-[#B8955A]/20 hover:border-[#D4B87A]/60 aspect-square flex flex-col items-center justify-center p-6 text-center transition-all duration-300 hover:scale-[1.02]"
+              className="group relative overflow-hidden rounded-xl aspect-[3/4] bg-[#191715] shadow-lg block"
             >
-              <div className="w-12 h-12 rounded-full bg-[#191715] border border-[#B8955A]/30 flex items-center justify-center text-[#D4B87A] mb-3 group-hover:scale-110 transition-transform">
-                <Instagram className="w-5 h-5" />
+              <img
+                src={item.image}
+                alt={item.label}
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 brightness-[0.88]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />
+
+              <div className="absolute bottom-4 left-4 right-4 text-white space-y-0.5">
+                <p className="text-xs font-medium text-[#EFE3D5] group-hover:text-[#D4B87A] transition-colors leading-tight">
+                  {item.label}
+                </p>
+                <p className="text-[10px] text-[#D4B87A]/75 font-mono tracking-wider">
+                  {item.tag}
+                </p>
               </div>
-              <span className="text-xs font-serif text-white group-hover:text-[#D4B87A] transition-colors line-clamp-2">
-                {post.label}
-              </span>
-              <span className="text-[10px] text-[#E5D3BF]/60 tracking-wider mt-2">
-                {post.tag}
-              </span>
             </a>
           ))}
         </div>

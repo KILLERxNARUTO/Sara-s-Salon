@@ -45,23 +45,23 @@ export const Logo: React.FC<LogoProps> = ({
 
   // --- VERTICAL FULL IMAGE STACKED VARIANT ---
   if (layout === 'vertical') {
-    const imgHeight = size === 'sm' ? 'h-12' : size === 'lg' ? 'h-24' : 'h-16 md:h-20';
+    const imgHeight = size === 'sm' ? 'h-14 w-14' : size === 'lg' ? 'h-24 w-24' : 'h-18 w-18 md:h-20 md:w-20';
     return (
       <Link to="/" className={`flex flex-col items-center text-center group ${className}`}>
-        {/* Full Uncropped Crown & Flourish Logo Image */}
-        <div className="relative rounded-xl overflow-hidden shadow-lg border border-[#D4B87A]/40 bg-[#191715] p-1 transition-transform duration-300 group-hover:scale-105">
+        {/* Full Uncropped Golden Crowned S Emblem - Box Free */}
+        <div className="relative transition-transform duration-300 group-hover:scale-105">
           <img
             src="/logo.png"
-            alt="Sara's Makeover Artistry Full Logo"
-            className={`${imgHeight} w-auto object-contain rounded-lg`}
+            alt="Sara's Makeover Artistry Emblem"
+            className={`${imgHeight} object-contain drop-shadow-[0_4px_16px_rgba(212,184,122,0.35)]`}
           />
         </div>
         <div className="mt-3 flex flex-col items-center">
-          <span className={`font-sans font-bold tracking-[0.25em] uppercase text-xs md:text-sm ${isDark ? 'text-[#191715]' : 'text-[#D4B87A]'}`}>
+          <span className={`font-sans font-medium tracking-[0.2em] uppercase text-xs md:text-sm ${isDark ? 'text-[#191715]' : 'text-white'}`}>
             Sara's Makeover Artistry
           </span>
           {showSubtitle && (
-            <span className={`font-sans text-[10px] tracking-[0.2em] uppercase mt-1 ${isDark ? 'text-[#886835]' : 'text-[#E5D3BF]/70'}`}>
+            <span className={`font-sans text-[10px] tracking-[0.2em] uppercase mt-1 ${isDark ? 'text-[#886835]' : 'text-[#D4B87A]'}`}>
               Beauty & Bridal Studio
             </span>
           )}
@@ -71,7 +71,7 @@ export const Logo: React.FC<LogoProps> = ({
   }
 
   // --- HORIZONTAL HEADER NAVBAR VARIANT ---
-  const imgHeight = size === 'sm' ? 'h-8' : size === 'lg' ? 'h-14' : 'h-10 md:h-12';
+  const imgSize = size === 'sm' ? 'h-9 w-9' : size === 'lg' ? 'h-14 w-14 md:h-16 md:w-16' : 'h-11 w-11 md:h-12 md:w-12';
   const sizeClasses = {
     sm: {
       title: 'text-base',
@@ -88,20 +88,20 @@ export const Logo: React.FC<LogoProps> = ({
   }[size];
 
   return (
-    <Link to="/" className={`inline-flex items-center gap-3 group text-left ${className}`}>
-      {/* Full Uncropped Crown Logo Emblem */}
-      <div className="relative rounded-lg overflow-hidden shadow-md border border-[#D4B87A]/40 bg-[#191715] p-0.5 transition-transform duration-300 group-hover:scale-105 flex-shrink-0">
+    <Link to="/" className={`inline-flex items-center gap-3.5 group text-left ${className}`}>
+      {/* Full Golden Crowned S Emblem - Box Free */}
+      <div className="relative flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
         <img
           src="/logo.png"
           alt="Sara's Makeover Artistry Logo"
-          className={`${imgHeight} w-auto object-contain rounded`}
+          className={`${imgSize} object-contain drop-shadow-[0_2px_12px_rgba(212,184,122,0.35)]`}
         />
       </div>
 
-      {/* Brand Typography */}
+      {/* Brand Typography - Clean Modern Sans */}
       <div className="flex flex-col">
         <span
-          className={`font-serif font-semibold leading-none transition-colors ${
+          className={`font-sans font-medium tracking-tight leading-none transition-colors ${
             sizeClasses.title
           } ${isDark ? 'text-[#191715]' : 'text-white'}`}
         >
@@ -109,7 +109,7 @@ export const Logo: React.FC<LogoProps> = ({
         </span>
         {showSubtitle && (
           <span
-            className={`font-sans uppercase font-medium mt-1 ${
+            className={`font-sans uppercase font-light mt-1 ${
               sizeClasses.subtitle
             } ${isDark ? 'text-[#A07D45]' : 'text-[#D4B87A]'}`}
           >

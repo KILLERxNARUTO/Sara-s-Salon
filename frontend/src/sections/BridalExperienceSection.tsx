@@ -1,85 +1,184 @@
-import React from 'react';
-import { BRIDAL_TIMELINE } from '@/data/constants';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, MessageCircle, Check } from 'lucide-react';
 import { SectionHeading } from '@/components/SectionHeading';
-import { Logo } from '@/components/Logo';
 import { Button } from '@/components/Button';
-import { Sparkles, Calendar, MessageCircle } from 'lucide-react';
 import { generateBridalInquiryLink } from '@/utils/whatsapp';
 
+const BRIDAL_STEPS = [
+  {
+    step: '01',
+    title: 'Consultation & Look Curation',
+    tagline: 'Bridal Aura Mapping',
+    desc: 'In-depth consultation covering your bridal attire, jewellery tones, muhurtham timing, and personal aesthetic to craft bespoke makeover blueprints.',
+    highlights: ['Saree and Jewellery Color Matching', 'Skin Preparation Roadmap', 'Custom Hair Ornamentation Plan'],
+    image: '/images/luxury_bridal_editorial.jpg',
+  },
+  {
+    step: '02',
+    title: 'Aesthetic Skin Preparation',
+    tagline: 'Luminous Glow Rituals',
+    desc: 'Multi-week pre-bridal skin therapy featuring luxury hydra-infusions, gold-leaf peptide serums, and intensive detanning for natural glass skin.',
+    highlights: ['O3+ Diamond Glow Therapy', 'Under-eye Brightening Infusion', 'Collagen Boost Rejuvenation'],
+    image: '/images/luxury_skincare_facial.jpg',
+  },
+  {
+    step: '03',
+    title: 'Royal Mehendi Artistry',
+    tagline: 'Intricate Peacock & Jaal Henna',
+    desc: 'Handcrafted bridal henna crafted with organic, dark-staining herbal mehendi paste, customized with groom initials and traditional South Indian motifs.',
+    highlights: ['Full Hands and Feet Bridal Layout', 'Organic Long-Lasting Natural Dye', 'Arabic & Rajasthani Fusion'],
+    image: '/images/luxury_bridal_mehendi.jpg',
+  },
+  {
+    step: '04',
+    title: 'Muhurtham & Reception Makeover',
+    tagline: '16-Hour Sweatproof Longevity',
+    desc: 'High-definition airbrush and waterproof makeup formulated to withstand warm mandap lighting, humidity, and tears of joy without caking.',
+    highlights: ['HD Airbrush Perfection', 'Flawless Saree Draping & Pre-pleating', 'Fresh Jasmine Veni Hair Styling'],
+    image: '/images/luxury_bridal_editorial.jpg',
+  },
+  {
+    step: '05',
+    title: 'Entourage & Family Styling',
+    tagline: 'Complete Wedding Suite',
+    desc: 'Coordinated hair, makeup, and saree draping for the mother of the bride, sisters, and bridal entourage in our private luxury lounge.',
+    highlights: ['Private Ladies Suite Seclusion', 'Synchronized Schedule Timing', 'Express Touchup Assistance'],
+    image: '/images/luxury_salon_sanctuary.jpg',
+  },
+];
+
 export const BridalExperienceSection: React.FC = () => {
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
   const bridalWhatsApp = generateBridalInquiryLink();
+  const currentStep = BRIDAL_STEPS[activeStepIndex];
 
   return (
-    <section className="py-20 md:py-28 bg-[#191715] text-[#F8F3ED] relative overflow-hidden">
-      {/* Subtle Background Elements */}
-      <div className="absolute inset-0 bg-radial from-[#B8955A]/10 to-transparent pointer-events-none" />
-
-      <div className="container-custom relative z-10 flex flex-col items-center">
-        {/* Full Crown Logo Emblem */}
-        <Logo layout="vertical" variant="light" size="sm" showSubtitle={false} className="mb-3" />
+    <section className="py-24 md:py-32 bg-[#121110] text-[#F8F3ED] relative overflow-hidden border-b border-[#B8955A]/20">
+      <div className="container-custom relative z-10">
         <SectionHeading
-          subtitle="Sara's Bridal Couture"
-          title="The Bridal Transformation Experience"
-          description="From pre-wedding skincare and custom mehendi to bespoke bridal makeover and saree draping, we make your big day truly magical."
+          subtitle="Sara's Haute Bridal Couture"
+          title="The Royal Bridal Transformation Journey"
+          description="Every bride carries a royal legacy. We sculpt an unforgettable metamorphosis spanning pre-wedding skincare, intricate mehendi, and flawless 16-hour muhurtham makeup."
           align="center"
           theme="dark"
         />
 
-        {/* 5-Step Timeline Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-12 mb-16">
-          {BRIDAL_TIMELINE.map((step) => (
-            <div
-              key={step.number}
-              className="bg-[#2A2623]/60 border border-[#B8955A]/20 hover:border-[#B8955A]/60 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 relative group"
+        {/* Open Horizontal Step Indicator — No Box Containers */}
+        <div className="flex items-center justify-between gap-6 overflow-x-auto no-scrollbar py-6 my-8 border-b border-white/10">
+          {BRIDAL_STEPS.map((step, idx) => (
+            <button
+              key={step.step}
+              onClick={() => setActiveStepIndex(idx)}
+              className="group flex flex-col items-start gap-1 transition-all duration-300 shrink-0 text-left cursor-pointer"
             >
-              <div className="font-serif text-3xl font-bold text-[#D4B87A]/40 group-hover:text-[#D4B87A] transition-colors mb-4">
-                {step.number}
+              <div className="flex items-center gap-2">
+                <span
+                  className={`text-sm font-mono transition-colors ${
+                    activeStepIndex === idx ? 'text-[#D4B87A] font-semibold' : 'text-[#E5D3BF]/40'
+                  }`}
+                >
+                  {step.step}
+                </span>
+                <span
+                  className={`text-xs uppercase tracking-wider transition-colors ${
+                    activeStepIndex === idx ? 'text-white font-medium' : 'text-[#E5D3BF]/50 group-hover:text-[#E5D3BF]'
+                  }`}
+                >
+                  {step.title.split(' ')[0]} {step.title.split(' ')[1]}
+                </span>
               </div>
-              <h3 className="text-base font-semibold tracking-wider uppercase text-white mb-2">
-                {step.title}
-              </h3>
-              <p className="text-xs text-[#E5D3BF]/75 font-light leading-relaxed">
-                {step.description}
-              </p>
-            </div>
+              <div
+                className={`h-[2px] w-full transition-all duration-500 mt-2 ${
+                  activeStepIndex === idx ? 'bg-[#D4B87A]' : 'bg-transparent'
+                }`}
+              />
+            </button>
           ))}
         </div>
 
-        {/* Bridal Highlight Banner */}
-        <div className="bg-gradient-to-r from-[#2A2623] via-[#1E1B19] to-[#2A2623] border border-[#B8955A]/40 rounded-3xl p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl">
-          <div className="space-y-3 text-center lg:text-left max-w-xl">
-            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#D4B87A]">
-              <Sparkles className="w-4 h-4 text-[#D4B87A]" />
-              <span>Complimentary Consultation</span>
+        {/* Detailed Showcase Split View — Open Editorial Flow */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mt-12">
+          {/* Left: Interactive Details & Highlights */}
+          <div className="lg:col-span-6 space-y-6">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentStep.step}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 15 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="space-y-5"
+              >
+                <span className="text-xs uppercase tracking-[0.2em] text-[#D4B87A] font-semibold block">
+                  Stage {currentStep.step} • {currentStep.tagline}
+                </span>
+
+                <h3 className="text-3xl sm:text-4xl text-white font-normal leading-tight tracking-tight">
+                  {currentStep.title}
+                </h3>
+
+                <p className="text-base text-[#E5D3BF]/80 font-light leading-relaxed">
+                  {currentStep.desc}
+                </p>
+
+                {/* Highlights List with Clean Line Bullets */}
+                <div className="space-y-3 pt-3 border-t border-white/10">
+                  {currentStep.highlights.map((item) => (
+                    <div key={item} className="flex items-center gap-3 text-sm text-[#EFE3D5]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4B87A] shrink-0" />
+                      <span className="font-light tracking-wide">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+              <Button
+                href={bridalWhatsApp}
+                isExternal
+                variant="whatsapp"
+                size="md"
+                icon={<MessageCircle className="w-4 h-4" />}
+              >
+                Inquire on WhatsApp
+              </Button>
+              <Button
+                href="/bridal"
+                variant="outline"
+                size="md"
+                icon={<Calendar className="w-4 h-4" />}
+                className="!border-[#D4B87A]/40 !text-[#EFE3D5] hover:!bg-[#D4B87A]/15"
+              >
+                View Complete Bridal Menu
+              </Button>
             </div>
-            <h3 className="font-serif text-2xl md:text-3xl text-white font-normal">
-              Book Your Custom Bridal Consultation
-            </h3>
-            <p className="text-sm text-[#E5D3BF]/80 font-light leading-relaxed">
-              Meet our master makeover artists to discuss your wedding attire, skin regime, mehendi patterns, and hair styles with tailored bridal packages.
-            </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 shrink-0 w-full lg:w-auto">
-            <Button
-              href={bridalWhatsApp}
-              isExternal
-              variant="whatsapp"
-              size="md"
-              icon={<MessageCircle className="w-4 h-4" />}
-              className="w-full sm:w-auto"
-            >
-              WhatsApp Bridal Team
-            </Button>
-            <Button
-              href="/bridal"
-              variant="primary"
-              size="md"
-              icon={<Calendar className="w-4 h-4" />}
-              className="w-full sm:w-auto"
-            >
-              View Bridal Packages
-            </Button>
+          {/* Right: Clean Editorial Photography Frame */}
+          <div className="lg:col-span-6">
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#191715] shadow-2xl">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentStep.image}
+                  src={currentStep.image}
+                  alt={currentStep.title}
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full h-full object-cover brightness-[0.9]"
+                />
+              </AnimatePresence>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+
+              <div className="absolute bottom-4 left-6 right-6 text-white flex items-center justify-between text-xs">
+                <span className="font-light text-[#E5D3BF]">{currentStep.title}</span>
+                <span className="font-mono text-[#D4B87A] font-semibold">{currentStep.step} / 05</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

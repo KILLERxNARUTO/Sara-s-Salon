@@ -1,15 +1,15 @@
 import React from 'react';
 import { SectionHeading } from '@/components/SectionHeading';
 import { Button } from '@/components/Button';
-import { Check, Sparkles, Calendar } from 'lucide-react';
+import { Check, Calendar } from 'lucide-react';
 import { generateBridalInquiryLink } from '@/utils/whatsapp';
 
 export const PackagesPreviewSection: React.FC = () => {
   const packages = [
     {
       name: 'Signature Bridal',
-      tier: 'SIGNATURE',
-      description: 'Essential bridal glow package for pre-wedding ceremonies and intimate celebrations.',
+      tier: 'Tier 01',
+      description: 'Essential bridal glow package for pre-wedding ceremonies, engagement and intimate celebrations.',
       features: [
         'HD Bridal / Engagement Makeup',
         'Traditional / Modern Hair Styling',
@@ -21,8 +21,8 @@ export const PackagesPreviewSection: React.FC = () => {
     },
     {
       name: 'Luxe Royal Bridal',
-      tier: 'LUXE',
-      description: 'Our most sought-after full-day wedding transformation experience.',
+      tier: 'Tier 02 • Recommended',
+      description: 'Our most requested full-day wedding transformation experience with master styling.',
       features: [
         'Luxury Ultra HD / Airbrush Look',
         'Bespoke Bridal Hair with Flowers/Accessories',
@@ -35,10 +35,10 @@ export const PackagesPreviewSection: React.FC = () => {
     },
     {
       name: 'Imperial Heritage Bridal',
-      tier: 'ROYAL',
-      description: 'Comprehensive multi-event bridal luxury with dedicated master artist.',
+      tier: 'Tier 03',
+      description: 'Comprehensive multi-event bridal luxury with dedicated master artist throughout.',
       features: [
-        'Muhurtham + Reception Complete Looks',
+        'Muhurtham and Reception Complete Looks',
         'Advanced Pre-Bridal Skin & Hair Spa Regime',
         'Full Bridal Royal Mehendi Artistry',
         'Premium Rica Waxing & Delan Treatment',
@@ -50,55 +50,51 @@ export const PackagesPreviewSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-[#191715] text-[#F8F3ED]">
+    <section className="py-20 md:py-32 bg-[#121110] text-[#F8F3ED] border-b border-[#B8955A]/20">
       <div className="container-custom">
         <SectionHeading
           subtitle="Curated Bridal Tiers"
-          title="Bridal Makeover Packages"
-          description="Handcrafted packages designed for modern brides wanting effortless grace, lasting radiance, and flawless finish."
+          title="Bridal Transformation Tiers"
+          description="Handcrafted bridal packages designed for effortless grace, lasting radiance, and flawless muhurtham photography."
           align="center"
           theme="dark"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-12">
+        {/* Open Editorial Columns — Completely Free of Boxes & Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10 mt-14 border-t border-b border-white/10 py-10 md:py-14">
           {packages.map((pkg) => (
             <div
               key={pkg.name}
-              className={`rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 relative ${
-                pkg.popular
-                  ? 'bg-gradient-to-b from-[#2A2623] to-[#1F1C1A] border-2 border-[#D4B87A] shadow-2xl scale-105 z-10'
-                  : 'bg-[#2A2623]/60 border border-[#B8955A]/20 hover:border-[#B8955A]/50'
+              className={`flex flex-col justify-between px-4 sm:px-8 py-8 md:py-0 ${
+                pkg.popular ? 'bg-white/[0.015]' : ''
               }`}
             >
-              {pkg.popular && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#B8955A] text-[#191715] text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1 rounded-full flex items-center gap-1 shadow-md">
-                  <Sparkles className="w-3 h-3 fill-current" />
-                  <span>Most Popular</span>
-                </div>
-              )}
-
               <div>
-                <span className="text-xs font-semibold uppercase tracking-widest text-[#D4B87A]">
+                <span className="text-[11px] uppercase tracking-[0.25em] text-[#D4B87A] font-semibold block mb-3">
                   {pkg.tier}
                 </span>
-                <h3 className="font-serif text-2xl font-normal text-white mt-1 mb-3">
+
+                <h3 className="text-2xl sm:text-3xl font-normal text-white mb-4 tracking-tight">
                   {pkg.name}
                 </h3>
-                <p className="text-xs text-[#E5D3BF]/70 font-light leading-relaxed mb-6">
+
+                <p className="text-xs text-[#E5D3BF]/70 font-light leading-relaxed mb-8">
                   {pkg.description}
                 </p>
 
-                <div className="space-y-3 pt-4 border-t border-white/10">
+                {/* Features List with Clean Hairline Items */}
+                <div className="space-y-3.5 pt-6 border-t border-white/10 mb-8">
                   {pkg.features.map((feat, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs text-[#EFE3D5]/90">
-                      <Check className="w-4 h-4 text-[#D4B87A] shrink-0 mt-0.5" />
-                      <span className="font-light">{feat}</span>
+                    <div key={idx} className="flex items-start gap-3 text-xs text-[#EFE3D5]">
+                      <Check className="w-3.5 h-3.5 text-[#D4B87A] shrink-0 mt-0.5" />
+                      <span className="font-light tracking-wide leading-relaxed">{feat}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="pt-8 mt-8 border-t border-white/10">
+              {/* Action */}
+              <div className="pt-4">
                 <Button
                   href={generateBridalInquiryLink(pkg.name)}
                   isExternal
@@ -107,7 +103,7 @@ export const PackagesPreviewSection: React.FC = () => {
                   className="w-full"
                   icon={<Calendar className="w-3.5 h-3.5" />}
                 >
-                  Inquire Package
+                  Inquire {pkg.name}
                 </Button>
               </div>
             </div>

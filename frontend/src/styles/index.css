@@ -35,9 +35,30 @@
   --color-forest-600: #176B57;
   --color-forest-700: #12523F;
 
-  /* Fonts */
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  /* shadcn UI Color System (Luxury Atelier Dark / Gold Theme) */
+  --color-background: #141210;
+  --color-foreground: #FDFBF7;
+  --color-primary: #B8955A;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #221F1C;
+  --color-secondary-foreground: #E5D3BF;
+  --color-muted: #2A2623;
+  --color-muted-foreground: #A89887;
+  --color-accent: #2A2623;
+  --color-accent-foreground: #D4B87A;
+  --color-destructive: #DC2626;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: rgba(212, 184, 122, 0.2);
+  --color-input: rgba(212, 184, 122, 0.3);
+  --color-ring: #D4B87A;
+  --color-popover: #191715;
+  --color-popover-foreground: #FDFBF7;
+  --color-card: #1C1A17;
+  --color-card-foreground: #FDFBF7;
+
+  /* Fonts — Simple, Clean & Professional Modern Sans */
+  --font-serif: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
 
   /* Custom Font Sizes */
   --text-display: 4.5rem;
@@ -152,6 +173,56 @@
   animation-play-state: paused;
 }
 
+@keyframes slowBreathe {
+  0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.18; }
+  50% { transform: scale(1.15) translate(-15px, 20px); opacity: 0.32; }
+}
+
+@keyframes goldGlowSweep {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(1deg); }
+}
+
+.animate-slow-breathe {
+  animation: slowBreathe 14s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 10s ease-in-out infinite;
+}
+
+.gold-foil-border {
+  position: relative;
+  background: linear-gradient(135deg, rgba(212, 184, 122, 0.4), rgba(184, 149, 90, 0.1), rgba(212, 184, 122, 0.4));
+  padding: 1px;
+}
+
+.gold-foil-border-active {
+  background: linear-gradient(135deg, #D4B87A, #B8955A, #F0DDD8, #D4B87A);
+  background-size: 300% 300%;
+  animation: goldGlowSweep 6s ease infinite;
+}
+
+.luxury-glass {
+  background: rgba(253, 251, 247, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 184, 122, 0.25);
+}
+
+.luxury-glass-dark {
+  background: rgba(25, 23, 21, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 184, 122, 0.2);
+}
+
 /* ============================================
    GLOBAL STYLES
    ============================================ */
@@ -169,9 +240,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Headings default to serif */
+/* Headings — Clean, simple, and professional typography */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
+  letter-spacing: -0.02em;
 }
 
 /* Selection color */

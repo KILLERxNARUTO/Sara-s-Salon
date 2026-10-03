@@ -190,31 +190,31 @@ export const AboutContactPage: React.FC = () => {
                 href="#legacy" 
                 className="px-4 py-2 rounded-full bg-white/5 hover:bg-[#B8955A]/20 border border-white/10 hover:border-[#B8955A]/50 transition-all text-[#E5D3BF] hover:text-white"
               >
-                ✨ Our Legacy
+                Our Legacy
               </a>
               <a 
                 href="#contact" 
                 className="px-4 py-2 rounded-full bg-white/5 hover:bg-[#B8955A]/20 border border-white/10 hover:border-[#B8955A]/50 transition-all text-[#E5D3BF] hover:text-white"
               >
-                📞 Contact & Enquiry
+                Contact & Enquiry
               </a>
               <a 
                 href="#location" 
                 className="px-4 py-2 rounded-full bg-white/5 hover:bg-[#B8955A]/20 border border-white/10 hover:border-[#B8955A]/50 transition-all text-[#E5D3BF] hover:text-white"
               >
-                📍 Map & Directions
+                Map & Directions
               </a>
               <a 
                 href="#instagram" 
                 className="px-4 py-2 rounded-full bg-white/5 hover:bg-[#B8955A]/20 border border-white/10 hover:border-[#B8955A]/50 transition-all text-[#E5D3BF] hover:text-white"
               >
-                📸 Instagram Feed
+                Instagram Journal
               </a>
               <a 
                 href="#faqs" 
                 className="px-4 py-2 rounded-full bg-white/5 hover:bg-[#B8955A]/20 border border-white/10 hover:border-[#B8955A]/50 transition-all text-[#E5D3BF] hover:text-white"
               >
-                ❓ FAQs
+                Frequently Asked Questions
               </a>
             </div>
           </div>
@@ -495,14 +495,14 @@ export const AboutContactPage: React.FC = () => {
                           onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                           className="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/10 text-white text-sm focus:outline-none focus:border-[#B8955A] transition-colors"
                         >
-                          <option value="Bridal Makeover (HD / O3+ / Lotus)" className="bg-[#191715] text-white">💍 Bridal Makeover (HD / O3+ / Lotus)</option>
-                          <option value="Bridal Mehendi & Saree Draping" className="bg-[#191715] text-white">🌿 Bridal Mehendi & Saree Draping</option>
-                          <option value="Hair Spa & Keratin / Smoothening" className="bg-[#191715] text-white">💇 Hair Spa, Keratin & Styling</option>
-                          <option value="O3+ / Lotus Radiance Facial" className="bg-[#191715] text-white">✨ O3+ / Lotus Radiance Facial</option>
-                          <option value="Rica Waxing & Threading" className="bg-[#191715] text-white">🍯 Rica Waxing & Threading</option>
-                          <option value="Manicure, Pedicure & Nail Art" className="bg-[#191715] text-white">💅 Manicure, Pedicure & Nail Art</option>
-                          <option value="Kids Haircut & Pampering" className="bg-[#191715] text-white">👧 Kids Haircut & Pampering</option>
-                          <option value="Other Custom Services" className="bg-[#191715] text-white">🌟 Other Custom Services</option>
+                          <option value="Bridal Makeover (HD / O3+ / Lotus)" className="bg-[#191715] text-white">Bridal Makeover (HD / O3+ / Lotus)</option>
+                          <option value="Bridal Mehendi & Saree Draping" className="bg-[#191715] text-white">Bridal Mehendi & Saree Draping</option>
+                          <option value="Hair Spa & Keratin / Smoothening" className="bg-[#191715] text-white">Hair Spa, Keratin & Styling</option>
+                          <option value="O3+ / Lotus Radiance Facial" className="bg-[#191715] text-white">O3+ / Lotus Radiance Facial</option>
+                          <option value="Rica Waxing & Threading" className="bg-[#191715] text-white">Rica Waxing & Threading</option>
+                          <option value="Manicure, Pedicure & Nail Art" className="bg-[#191715] text-white">Manicure, Pedicure & Nail Art</option>
+                          <option value="Kids Haircut & Pampering" className="bg-[#191715] text-white">Kids Haircut & Pampering</option>
+                          <option value="Other Custom Services" className="bg-[#191715] text-white">Other Custom Services</option>
                         </select>
                       </div>
 
@@ -650,7 +650,7 @@ export const AboutContactPage: React.FC = () => {
                           : 'text-[#E5D3BF]/70 hover:text-white'
                       }`}
                     >
-                      🗺️ Studio Landmark Map
+                      Studio Landmark Map
                     </button>
                     <button
                       onClick={() => setMapMode('google')}
@@ -660,7 +660,7 @@ export const AboutContactPage: React.FC = () => {
                           : 'text-[#E5D3BF]/70 hover:text-white'
                       }`}
                     >
-                      📍 Live Google Map
+                      Live Google Map
                     </button>
                   </div>
 
@@ -755,24 +755,24 @@ export const AboutContactPage: React.FC = () => {
                         saras_beauty_and_bridal_studio
                       </h3>
                       <span className="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-400 text-[10px] font-bold border border-sky-500/30 flex items-center gap-1">
-                        ✓ Verified Studio
+                        Verified Studio
                       </span>
                     </div>
 
                     <p className="text-xs sm:text-sm text-[#E5D3BF]/90 font-light max-w-xl leading-relaxed">
-                      ✨ <strong className="text-white">Sara's Makeover Artistry</strong> • Premier Bridal & Ladies Sanctuary in Guduvanchery (Near NPR Mandapam). Handcrafted bridal looks, HD makeup & personalized luxury self-care.
+                      <strong className="text-white">Sara's Makeover Artistry</strong> • Premier Bridal & Ladies Sanctuary in Guduvanchery (Near NPR Mandapam). Handcrafted bridal looks, HD makeup & personalized luxury self-care.
                     </p>
 
                     {/* Highlights Pills */}
                     <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1">
                       <span className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[#D4B87A] font-medium">
-                        👰 500+ Brides Styled
+                        500+ Brides Styled
                       </span>
                       <span className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[#E5D3BF] font-medium">
-                        💄 10+ Yrs Artistry
+                        10+ Yrs Artistry
                       </span>
                       <span className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[#E5D3BF] font-medium">
-                        📍 Guduvanchery, Chennai
+                        Guduvanchery, Chennai
                       </span>
                     </div>
                   </div>

@@ -34,16 +34,16 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
       )}
 
       <h2
-        className={`font-serif text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight leading-tight max-w-3xl ${
+        className={`text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight leading-tight max-w-3xl ${
           isDark ? 'text-white' : 'text-[#191715]'
         }`}
       >
         {title}
       </h2>
 
-      {/* Decorative Accent Line */}
+      {/* Clean Subtle Accent Line */}
       <div
-        className={`w-16 h-[2px] bg-gradient-to-r from-[#B8955A] to-[#D4B87A] my-5 ${
+        className={`w-12 h-[1.5px] bg-[#B8955A] my-4 ${
           align === 'center' ? 'mx-auto' : ''
         }`}
       />
