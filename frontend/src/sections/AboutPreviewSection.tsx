@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SectionHeading } from '@/components/SectionHeading';
 import { Button } from '@/components/Button';
-import { Sparkles, ShieldCheck, HeartHandshake, ArrowRight, Eye } from 'lucide-react';
+import { ArrowRight, Eye } from 'lucide-react';
 
 const STUDIO_HIGHLIGHTS = [
   {

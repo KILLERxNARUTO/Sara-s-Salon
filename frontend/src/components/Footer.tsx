@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, ExternalLink, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, ExternalLink } from 'lucide-react';
 import { Instagram } from '@/components/icons/Instagram';
 import { BUSINESS_INFO, PHONE_LINKS, EMAIL_LINK, NAV_LINKS } from '@/data/constants';
 import { Logo } from './Logo';

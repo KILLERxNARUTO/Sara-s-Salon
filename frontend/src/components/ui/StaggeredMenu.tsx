@@ -55,7 +55,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   onMenuClose
 }) => {
   const navigate = useNavigate();
-  const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
 
@@ -71,7 +70,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    setMounted(true);
     return () => {
       if (leaveTimerRef.current) clearTimeout(leaveTimerRef.current);
     };
@@ -79,7 +77,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
   // Setup initial offscreen positions
   useLayoutEffect(() => {
-    if (!mounted) return;
     const ctx = gsap.context(() => {
       const panel = panelRef.current;
       const backdrop = backdropRef.current;
@@ -115,7 +112,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       if (toggleBtnRef.current) gsap.set(toggleBtnRef.current, { color: menuButtonColor });
     });
     return () => ctx.revert();
-  }, [mounted, menuButtonColor, position]);
+  }, [menuButtonColor, position]);
 
   // Smooth, buttery 60fps open animation (interruptible)
   const playOpen = useCallback(() => {
@@ -190,7 +187,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         overwrite: 'auto',
       });
     }
-  }, [position]);
+  }, []);
 
   // Smooth, buttery close animation (interruptible)
   const playClose = useCallback(() => {
@@ -427,7 +424,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       </div>
 
       {/* Portaled Drawer & Underlay Layers Flush at the True Right Edge */}
-      {mounted &&
+      {typeof document !== 'undefined' &&
         createPortal(
           <div
             className="staggered-menu-portal-root"

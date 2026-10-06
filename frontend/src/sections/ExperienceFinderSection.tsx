@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { EXPERIENCE_OPTIONS } from '@/data/constants';
 import { SectionHeading } from '@/components/SectionHeading';
 import { Button } from '@/components/Button';
-import { Calendar, ArrowRight, Check } from 'lucide-react';
+import { Calendar, ArrowRight } from 'lucide-react';
 
 export const ExperienceFinderSection: React.FC = () => {
   const [selectedId, setSelectedId] = useState<string>('wedding');

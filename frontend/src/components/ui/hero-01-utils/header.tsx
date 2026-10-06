@@ -33,7 +33,7 @@ export interface HeaderProps {
   navigationData?: NavigationSection[];
 }
 
-export default function Header({ navigationData }: HeaderProps) {
+export default function Header({ navigationData: _navigationData }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { SectionHeading } from '@/components/SectionHeading';
-import { Sparkles, Award } from 'lucide-react';
+import { Award } from 'lucide-react';
 
 export const TeamPreviewSection: React.FC = () => {
   const team = [

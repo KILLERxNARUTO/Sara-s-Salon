@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Navigation } from 'lucide-react';
+import { Navigation } from 'lucide-react';
 import { BUSINESS_INFO, PHONE_LINKS, EMAIL_LINK } from '@/data/constants';
 import { Button } from '@/components/Button';
 import { SectionHeading } from '@/components/SectionHeading';

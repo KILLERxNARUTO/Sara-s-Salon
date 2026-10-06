@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShieldCheck, Heart, Award, Sparkles } from 'lucide-react';
 
 const AnimatedCounter: React.FC<{ target: number; suffix?: string; prefix?: string; duration?: number }> = ({
   target,

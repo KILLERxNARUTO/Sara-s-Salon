@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { SectionHeading } from '@/components/SectionHeading';
 import { SERVICE_CATEGORIES, SERVICES_DATA } from '@/data/services';
 import { SIGNATURE_CATEGORIES } from '@/data/constants';
 import { PriceBadge } from '@/components/PriceBadge';
-import { Button } from '@/components/Button';
 import { 
   Search, 
   Calendar, 
@@ -14,7 +12,6 @@ import {
   Volume2, 
   VolumeX, 
   SkipForward, 
-  Sparkles,
   Film
 } from 'lucide-react';
 

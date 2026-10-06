@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronUp, Sparkles } from 'lucide-react';
+import { ChevronUp } from 'lucide-react';
 
 export const BackToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);

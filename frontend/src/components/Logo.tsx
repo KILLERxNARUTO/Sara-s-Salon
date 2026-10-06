@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
 
 interface LogoProps {
   variant?: 'light' | 'dark';

@@ -14,7 +14,7 @@ export const BeautyJourneySection: React.FC = () => {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
-          {BEAUTY_JOURNEY_STEPS.map((step, index) => (
+          {BEAUTY_JOURNEY_STEPS.map((step) => (
             <div
               key={step.number}
               className="bg-white rounded-2xl p-6 border border-[#E5D3BF] shadow-sm hover:shadow-md transition-shadow relative flex flex-col items-center text-center group"

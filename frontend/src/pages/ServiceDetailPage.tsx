@@ -5,7 +5,7 @@ import { SIGNATURE_CATEGORIES } from '@/data/constants';
 import { SectionHeading } from '@/components/SectionHeading';
 import { PriceBadge } from '@/components/PriceBadge';
 import { Button } from '@/components/Button';
-import { ArrowLeft, Calendar, Sparkles } from 'lucide-react';
+import { ArrowLeft, Calendar } from 'lucide-react';
 
 export const ServiceDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();

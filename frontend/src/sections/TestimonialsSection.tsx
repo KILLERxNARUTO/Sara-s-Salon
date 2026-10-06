@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SectionHeading } from '@/components/SectionHeading';
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const REVIEWS = [
   {

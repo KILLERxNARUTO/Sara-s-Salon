@@ -3,21 +3,41 @@ import { useSearchParams } from 'react-router-dom';
 import { SectionHeading } from '@/components/SectionHeading';
 import { SERVICES_DATA } from '@/data/services';
 import { Button } from '@/components/Button';
-import { Calendar, CheckCircle2, Clock, User, Phone, Sparkles, AlertCircle } from 'lucide-react';
+import { Calendar, CheckCircle2, AlertCircle } from 'lucide-react';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
+const TIME_SLOTS = [
+  '10:00 AM',
+  '11:30 AM',
+  '01:00 PM',
+  '02:30 PM',
+  '04:00 PM',
+  '05:30 PM',
+  '07:00 PM',
+];
 
 export const BookingPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const initialService = searchParams.get('service') || '';
   const initialOccasion = searchParams.get('occasion') || '';
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState(() => ({
     name: '',
     phone: '',
     serviceName: initialService || (initialOccasion ? `${initialOccasion} Package` : ''),
     date: '',
     time: '10:30 AM',
     notes: '',
-  });
+  }));
+
+  const [prevService, setPrevService] = useState(initialService);
+  if (initialService !== prevService) {
+    setPrevService(initialService);
+    if (initialService) {
+      setFormData((prev) => ({ ...prev, serviceName: initialService }));
+    }
+  }
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -26,51 +46,40 @@ export const BookingPage: React.FC = () => {
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [isLoadingSlots, setIsLoadingSlots] = useState(false);
 
-  const TIME_SLOTS = [
-    '10:00 AM',
-    '11:30 AM',
-    '01:00 PM',
-    '02:30 PM',
-    '04:00 PM',
-    '05:30 PM',
-    '07:00 PM',
-  ];
-
-  useEffect(() => {
-    if (initialService) {
-      setFormData((prev) => ({ ...prev, serviceName: initialService }));
-    }
-  }, [initialService]);
-
   // Fetch booked slots whenever date changes
   useEffect(() => {
     if (!formData.date) return;
 
     let isMounted = true;
-    setIsLoadingSlots(true);
-
-    fetch(`http://localhost:3001/api/bookings/booked-slots?date=${formData.date}`)
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchSlots = async () => {
+      setIsLoadingSlots(true);
+      try {
+        const res = await fetch(`${API_URL}/api/bookings/booked-slots?date=${formData.date}`);
+        const data = await res.json();
         if (!isMounted) return;
+
         if (data.success && Array.isArray(data.bookedSlots)) {
           setBookedSlots(data.bookedSlots);
 
           // If the currently selected time is booked, switch to first open slot
-          if (data.bookedSlots.includes(formData.time)) {
-            const firstAvailable = TIME_SLOTS.find((s) => !data.bookedSlots.includes(s));
-            if (firstAvailable) {
-              setFormData((prev) => ({ ...prev, time: firstAvailable }));
+          setFormData((prev) => {
+            if (data.bookedSlots.includes(prev.time)) {
+              const firstAvailable = TIME_SLOTS.find((s) => !data.bookedSlots.includes(s));
+              if (firstAvailable) {
+                return { ...prev, time: firstAvailable };
+              }
             }
-          }
+            return prev;
+          });
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         console.warn('Could not check booked slots:', err);
-      })
-      .finally(() => {
+      } finally {
         if (isMounted) setIsLoadingSlots(false);
-      });
+      }
+    };
+
+    fetchSlots();
 
     return () => {
       isMounted = false;
@@ -83,7 +92,7 @@ export const BookingPage: React.FC = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch('http://localhost:3001/api/bookings', {
+      const response = await fetch(`${API_URL}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -106,7 +115,7 @@ export const BookingPage: React.FC = () => {
         setErrorMessage(data.message || 'Could not process your booking. Please try another time slot.');
         // Refresh booked slots
         if (formData.date) {
-          fetch(`http://localhost:3001/api/bookings/booked-slots?date=${formData.date}`)
+          fetch(`${API_URL}/api/bookings/booked-slots?date=${formData.date}`)
             .then((r) => r.json())
             .then((d) => {
               if (d.success && Array.isArray(d.bookedSlots)) {

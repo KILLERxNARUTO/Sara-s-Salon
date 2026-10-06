@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, MessageCircle, Check } from 'lucide-react';
+import { Calendar, MessageCircle } from 'lucide-react';
 import { SectionHeading } from '@/components/SectionHeading';
 import { Button } from '@/components/Button';
 import { generateBridalInquiryLink } from '@/utils/whatsapp';

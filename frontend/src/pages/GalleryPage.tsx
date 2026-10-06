@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SectionHeading } from '@/components/SectionHeading';
-import { Sparkles, Heart } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export const GalleryPage: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
