@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { SERVICE_CATEGORIES, SERVICES_DATA } from '@/data/services';
 import { SIGNATURE_CATEGORIES } from '@/data/constants';
+import type { ServiceCategory } from '@/types';
 import { SectionHeading } from '@/components/SectionHeading';
 import { PriceBadge } from '@/components/PriceBadge';
 import { Button } from '@/components/Button';
@@ -19,10 +20,18 @@ export const ServiceDetailPage: React.FC = () => {
 
   const services = SERVICES_DATA.filter((s) => categoryIds.includes(s.category_id));
 
-  const primaryCategory = matchedCategories[0] || {
+  const fallbackCategory: ServiceCategory = {
+    id: slug || 'services',
     name: slug ? slug.charAt(0).toUpperCase() + slug.slice(1) : 'Services',
     description: 'Explore our specialized services tailored to your personal aesthetic goals.',
+    slug: slug || '',
+    page_slug: slug || '',
+    image_url: '',
+    display_order: 0,
+    is_active: true,
   };
+
+  const primaryCategory: ServiceCategory = matchedCategories[0] || fallbackCategory;
 
   // Find image from SIGNATURE_CATEGORIES
   const signatureMatch = SIGNATURE_CATEGORIES.find(
