@@ -17,9 +17,12 @@ import { ContactPage } from '@/pages/ContactPage';
 import { BookingPage } from '@/pages/BookingPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 
+import { ScrollToTop } from '@/components/ScrollToTop';
+
 export function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* Public Routes with Main Website Layout */}
         <Route path="/" element={<MainLayout />}>
