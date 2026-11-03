@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SectionHeading } from '@/components/SectionHeading';
 import { SERVICES_DATA } from '@/data/services';
+import { SALON_BRANCHES } from '@/data/constants';
 import { Button } from '@/components/Button';
-import { Calendar, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Calendar, CheckCircle2, AlertCircle, MapPin, MessageCircle } from 'lucide-react';
+import { generateBookingWhatsAppLink } from '@/utils/whatsapp';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
@@ -21,8 +23,10 @@ export const BookingPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const initialService = searchParams.get('service') || '';
   const initialOccasion = searchParams.get('occasion') || '';
+  const initialBranch = searchParams.get('branch') || SALON_BRANCHES[0].id;
 
   const [formData, setFormData] = useState(() => ({
+    branch: initialBranch,
     name: '',
     phone: '',
     serviceName: initialService || (initialOccasion ? `${initialOccasion} Package` : ''),
@@ -46,7 +50,10 @@ export const BookingPage: React.FC = () => {
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [isLoadingSlots, setIsLoadingSlots] = useState(false);
 
-  // Fetch booked slots whenever date changes
+  const selectedBranchObj =
+    SALON_BRANCHES.find((b) => b.id === formData.branch) || SALON_BRANCHES[0];
+
+  // Fetch booked slots whenever date or branch changes
   useEffect(() => {
     if (!formData.date) return;
 
@@ -54,14 +61,16 @@ export const BookingPage: React.FC = () => {
     const fetchSlots = async () => {
       setIsLoadingSlots(true);
       try {
-        const res = await fetch(`${API_URL}/api/bookings/booked-slots?date=${formData.date}`);
+        const res = await fetch(
+          `${API_URL}/api/bookings/booked-slots?date=${formData.date}&branch=${encodeURIComponent(formData.branch)}`
+        );
         const data = await res.json();
         if (!isMounted) return;
 
         if (data.success && Array.isArray(data.bookedSlots)) {
           setBookedSlots(data.bookedSlots);
 
-          // If the currently selected time is booked, switch to first open slot
+          // If current time is booked, switch to first open slot
           setFormData((prev) => {
             if (data.bookedSlots.includes(prev.time)) {
               const firstAvailable = TIME_SLOTS.find((s) => !data.bookedSlots.includes(s));
@@ -84,7 +93,7 @@ export const BookingPage: React.FC = () => {
     return () => {
       isMounted = false;
     };
-  }, [formData.date]);
+  }, [formData.date, formData.branch]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,6 +108,9 @@ export const BookingPage: React.FC = () => {
           name: formData.name,
           phone: formData.phone,
           service: formData.serviceName,
+          branch: selectedBranchObj.address,
+          branchName: selectedBranchObj.name,
+          branchId: selectedBranchObj.id,
           date: formData.date,
           time: formData.time,
           notes: formData.notes,
@@ -108,14 +120,21 @@ export const BookingPage: React.FC = () => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        setBookingRef(data.booking?.booking_reference || data.booking?.id || 'SB-' + Math.floor(100000 + Math.random() * 900000));
+        setBookingRef(
+          data.booking?.booking_reference ||
+            data.booking?.id ||
+            'SB-' + Math.floor(100000 + Math.random() * 900000)
+        );
         setIsSubmitted(true);
       } else {
         // Handle slot conflict or validation error
-        setErrorMessage(data.message || 'Could not process your booking. Please try another time slot.');
-        // Refresh booked slots
+        setErrorMessage(
+          data.message || 'Could not process your booking. Please try another time slot.'
+        );
         if (formData.date) {
-          fetch(`${API_URL}/api/bookings/booked-slots?date=${formData.date}`)
+          fetch(
+            `${API_URL}/api/bookings/booked-slots?date=${formData.date}&branch=${encodeURIComponent(formData.branch)}`
+          )
             .then((r) => r.json())
             .then((d) => {
               if (d.success && Array.isArray(d.bookedSlots)) {
@@ -133,6 +152,15 @@ export const BookingPage: React.FC = () => {
     }
   };
 
+  const confirmationWhatsAppUrl = generateBookingWhatsAppLink({
+    customerName: formData.name,
+    branch: `${selectedBranchObj.name} (${selectedBranchObj.address})`,
+    serviceName: formData.serviceName,
+    date: formData.date,
+    time: formData.time,
+    notes: `Ref: ${bookingRef}${formData.notes ? ` | ${formData.notes}` : ''}`,
+  });
+
   return (
     <div className="py-20 md:py-28 bg-[#FDFBF7] min-h-screen text-[#191715]">
       <div className="container-custom max-w-4xl mx-auto">
@@ -140,7 +168,7 @@ export const BookingPage: React.FC = () => {
         <SectionHeading
           subtitle="Atelier Reservation"
           title="Reserve Your Appointment"
-          description="Select your desired treatment and preferred time. Your details will be registered and automatically dispatched directly to our atelier director's WhatsApp."
+          description="Choose your preferred salon branch, desired treatment, and timing. Your appointment is recorded in our system and instantly notified to our salon director."
           align="center"
         />
 
@@ -152,7 +180,7 @@ export const BookingPage: React.FC = () => {
         )}
 
         {isSubmitted ? (
-          /* Confirmation Screen - Box Free Editorial Layout */
+          /* Confirmation Screen */
           <div className="py-12 border-t border-b border-[#E5D3BF] space-y-8 animate-fade-in">
             <div className="flex flex-col items-center text-center space-y-3">
               <div className="w-14 h-14 rounded-full bg-[#191715] text-[#D4B87A] flex items-center justify-center shadow-lg">
@@ -165,18 +193,32 @@ export const BookingPage: React.FC = () => {
                 Appointment Request Registered
               </h3>
               <p className="text-sm text-[#2A2623]/80 font-light max-w-lg leading-relaxed">
-                Thank you, <strong className="font-medium text-[#191715]">{formData.name}</strong>. Your appointment request has been recorded into our atelier database and an automated notification has been dispatched to our director on WhatsApp.
+                Thank you, <strong className="font-medium text-[#191715]">{formData.name}</strong>.
+                Your appointment at{' '}
+                <strong className="font-medium text-[#B8955A]">{selectedBranchObj.name}</strong>{' '}
+                has been registered successfully.
               </p>
             </div>
 
-            {/* Reservation Summary - Hairline Divided Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 py-6 border-t border-b border-[#E5D3BF]">
+            {/* Reservation Summary */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 py-6 border-t border-b border-[#E5D3BF]">
               <div>
                 <span className="text-[10px] uppercase tracking-wider text-[#A07D45] block font-medium">
                   Booking Reference
                 </span>
-                <span className="text-base font-medium text-[#191715] mt-1 block">
+                <span className="text-base font-semibold text-[#191715] mt-1 block">
                   {bookingRef}
+                </span>
+              </div>
+              <div className="sm:col-span-2 lg:col-span-1">
+                <span className="text-[10px] uppercase tracking-wider text-[#A07D45] block font-medium">
+                  Salon Branch
+                </span>
+                <span className="text-sm font-semibold text-[#191715] mt-1 block">
+                  {selectedBranchObj.shortName}
+                </span>
+                <span className="text-[11px] text-[#2A2623]/70 font-light block leading-snug mt-0.5">
+                  {selectedBranchObj.landmark}
                 </span>
               </div>
               <div>
@@ -205,11 +247,34 @@ export const BookingPage: React.FC = () => {
               </div>
             </div>
 
+            {/* Branch Address Banner */}
+            <div className="p-4 rounded-xl bg-[#FAF6F0] border border-[#E5D3BF] flex items-start gap-3">
+              <MapPin className="w-5 h-5 text-[#B8955A] shrink-0 mt-0.5" />
+              <div className="space-y-0.5">
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#191715]">
+                  Branch Address:
+                </p>
+                <p className="text-xs text-[#2A2623]/80 leading-relaxed font-light">
+                  {selectedBranchObj.address}
+                </p>
+              </div>
+            </div>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button
+                href={confirmationWhatsAppUrl}
+                isExternal
+                variant="whatsapp"
+                size="md"
+                icon={<MessageCircle className="w-4 h-4" />}
+              >
+                Send via WhatsApp
+              </Button>
               <Button
                 onClick={() => {
                   setIsSubmitted(false);
                   setFormData({
+                    branch: SALON_BRANCHES[0].id,
                     name: '',
                     phone: '',
                     serviceName: '',
@@ -223,26 +288,98 @@ export const BookingPage: React.FC = () => {
               >
                 Book Another Service
               </Button>
-              <Button
-                href="/"
-                variant="primary"
-                size="md"
-              >
+              <Button href="/" variant="primary" size="md">
                 Return to Home
               </Button>
             </div>
           </div>
         ) : (
-          /* Form Screen - Open Editorial Flow, No Heavy Box Cards */
-          <form
-            onSubmit={handleSubmit}
-            className="pt-6 space-y-10"
-          >
-            {/* Step 1: Personal Details */}
+          /* Form Screen */
+          <form onSubmit={handleSubmit} className="pt-6 space-y-10">
+            {/* Step 01: Branch Selection */}
             <div className="space-y-4">
               <div className="flex items-center gap-3 border-b border-[#E5D3BF] pb-3">
                 <span className="text-xs uppercase tracking-[0.2em] font-medium text-[#B8955A]">
                   01
+                </span>
+                <h4 className="text-sm uppercase tracking-[0.18em] font-medium text-[#191715]">
+                  Select Salon Branch
+                </h4>
+              </div>
+
+              <p className="text-xs text-[#2A2623]/70 font-light">
+                Sara's Beauty & Bridal Studio operates across two locations in Guduvancheri. Please select your preferred branch:
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                {SALON_BRANCHES.map((branch) => {
+                  const isSelected = formData.branch === branch.id;
+                  return (
+                    <div
+                      key={branch.id}
+                      onClick={() => setFormData({ ...formData, branch: branch.id })}
+                      className={`relative flex flex-col justify-between p-5 rounded-2xl border transition-all duration-300 cursor-pointer ${
+                        isSelected
+                          ? 'border-[#B8955A] bg-[#B8955A]/5 shadow-md shadow-[#B8955A]/15 ring-2 ring-[#B8955A]/60'
+                          : 'border-[#E5D3BF] bg-white hover:border-[#B8955A]/50 hover:bg-[#FAF6F0]/60'
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-start justify-between gap-3 mb-2.5">
+                          <div className="flex items-center gap-2">
+                            <span
+                              className={`p-1.5 rounded-lg ${
+                                isSelected
+                                  ? 'bg-[#B8955A] text-white'
+                                  : 'bg-[#E5D3BF]/40 text-[#A07D45]'
+                              }`}
+                            >
+                              <MapPin className="w-4 h-4" />
+                            </span>
+                            <span className="text-sm font-semibold text-[#191715] tracking-tight">
+                              {branch.shortName}
+                            </span>
+                          </div>
+
+                          {/* Custom Radio Dot */}
+                          <div
+                            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
+                              isSelected
+                                ? 'border-[#B8955A] bg-[#B8955A]'
+                                : 'border-[#D1BA9E] bg-white'
+                            }`}
+                          >
+                            {isSelected && <span className="w-2 h-2 rounded-full bg-white" />}
+                          </div>
+                        </div>
+
+                        {/* Full Address Display */}
+                        <p className="text-xs text-[#2A2623]/80 leading-relaxed font-light pl-8">
+                          {branch.address}
+                        </p>
+                      </div>
+
+                      <div className="mt-4 pt-3 border-t border-[#E5D3BF]/60 flex items-center justify-between pl-8">
+                        <span className="text-[10px] uppercase tracking-wider text-[#A07D45] font-medium bg-[#E5D3BF]/30 px-2.5 py-0.5 rounded-full">
+                          Landmark: {branch.landmark}
+                        </span>
+                        {isSelected && (
+                          <span className="text-[10px] uppercase font-semibold text-[#B8955A] tracking-wider">
+                            Selected Branch ✓
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Step 02: Guest Information */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 border-b border-[#E5D3BF] pb-3">
+                <span className="text-xs uppercase tracking-[0.2em] font-medium text-[#B8955A]">
+                  02
                 </span>
                 <h4 className="text-sm uppercase tracking-[0.18em] font-medium text-[#191715]">
                   Guest Information
@@ -282,11 +419,11 @@ export const BookingPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Step 2: Service Selection */}
+            {/* Step 03: Service & Timing */}
             <div className="space-y-4">
               <div className="flex items-center gap-3 border-b border-[#E5D3BF] pb-3">
                 <span className="text-xs uppercase tracking-[0.2em] font-medium text-[#B8955A]">
-                  02
+                  03
                 </span>
                 <h4 className="text-sm uppercase tracking-[0.18em] font-medium text-[#191715]">
                   Treatment & Timing
@@ -379,11 +516,11 @@ export const BookingPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Step 3: Special Notes */}
+            {/* Step 04: Special Notes */}
             <div className="space-y-4">
               <div className="flex items-center gap-3 border-b border-[#E5D3BF] pb-3">
                 <span className="text-xs uppercase tracking-[0.2em] font-medium text-[#B8955A]">
-                  03
+                  04
                 </span>
                 <h4 className="text-sm uppercase tracking-[0.18em] font-medium text-[#191715]">
                   Special Instructions
@@ -407,7 +544,9 @@ export const BookingPage: React.FC = () => {
             {/* Action Buttons */}
             <div className="pt-4 border-t border-[#E5D3BF] flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-xs text-[#2A2623]/70 font-light">
-                Appointment details are automatically relayed to salon management for instant confirmation.
+                Appointment details will be booked for{' '}
+                <strong className="text-[#191715] font-medium">{selectedBranchObj.shortName}</strong>{' '}
+                and confirmed automatically.
               </p>
 
               <Button

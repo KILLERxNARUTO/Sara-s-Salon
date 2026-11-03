@@ -79,7 +79,7 @@ router.get('/booked-slots', async (req: Request, res: Response) => {
 
 // POST /api/bookings - Submit appointment with strict slot conflict prevention
 router.post('/', async (req: Request, res: Response) => {
-  const { name, phone, email, service, date, time, notes } = req.body;
+  const { name, phone, email, service, branch, branchName, date, time, notes } = req.body;
 
   if (!name || !phone || !service || !date || !time) {
     return res.status(400).json({
@@ -121,6 +121,7 @@ router.post('/', async (req: Request, res: Response) => {
     phone,
     email: email || '',
     service,
+    branch: branchName || branch || "Mahalakshmi Nagar Branch",
     appointment_date: date,
     appointment_time: displayTime,
     notes: notes || '',
@@ -139,7 +140,7 @@ router.post('/', async (req: Request, res: Response) => {
         email: email || null,
         appointment_date: date,
         appointment_time: time24,
-        special_request: `${service}${notes ? ` | Notes: ${notes}` : ''}`,
+        special_request: [branchName ? `Branch: ${branchName}` : (branch ? `Branch: ${branch}` : null), `Service: ${service}`, notes ? `Notes: ${notes}` : null].filter(Boolean).join(' | '),
         status: 'pending',
       });
 
@@ -165,6 +166,7 @@ router.post('/', async (req: Request, res: Response) => {
     customerName: name,
     phone,
     email,
+    branch: branchName ? `${branchName} (${branch || ""})` : (branch || undefined),
     serviceName: service,
     date,
     time: displayTime,

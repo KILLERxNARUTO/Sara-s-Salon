@@ -1,6 +1,7 @@
 import { WHATSAPP_NUMBER } from '@/data/constants';
 
 interface WhatsAppBookingData {
+  branch?: string;
   serviceName?: string;
   categoryName?: string;
   customerName?: string;
@@ -21,6 +22,9 @@ export const generateGeneralInquiryLink = (): string => {
 
 export const generateBookingWhatsAppLink = (data: WhatsAppBookingData): string => {
   let message = `Hello Sara's Beauty & Bridal Studio! I'd like to book an appointment.\n\n`;
+  if (data.branch) {
+    message += `Branch: ${data.branch}\n`;
+  }
   if (data.serviceName) {
     message += `Service: ${data.serviceName}\n`;
   }

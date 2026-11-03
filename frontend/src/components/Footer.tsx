@@ -85,9 +85,16 @@ export const Footer: React.FC = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-[#B8955A] mt-1 shrink-0" />
                 <div>
-                  <p>{BUSINESS_INFO.address_line_1}, {BUSINESS_INFO.address_line_2}</p>
-                  <p>{BUSINESS_INFO.city}</p>
-                  <p className="text-xs text-[#D4B87A] mt-0.5">({BUSINESS_INFO.landmark})</p>
+                  <div className="space-y-2 text-xs">
+                    <div>
+                      <span className="font-semibold text-[#D4B87A] block">Branch 1: Mahalakshmi Nagar</span>
+                      <p className="text-[#E5D3BF]/75 leading-relaxed">No. 77, Mahalakshmi Nagar Main Rd (Near NPR Mandapam)</p>
+                    </div>
+                    <div className="pt-1.5 border-t border-[#2A2623]">
+                      <span className="font-semibold text-[#D4B87A] block">Branch 2: Madambakkam Main Rd</span>
+                      <p className="text-[#E5D3BF]/75 leading-relaxed">1st Floor, Ranganathan Complex, FF 4, Guduvancheri</p>
+                    </div>
+                  </div>
                   <a
                     href={BUSINESS_INFO.google_maps_url}
                     target="_blank"

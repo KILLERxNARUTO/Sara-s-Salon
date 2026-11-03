@@ -152,3 +152,12 @@ export interface ExperienceOption {
   icon: string;
   recommendedServices: string[];
 }
+
+export interface SalonBranch {
+  id: string;
+  name: string;
+  shortName: string;
+  address: string;
+  landmark: string;
+  googleMapsUrl?: string;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Navigation } from 'lucide-react';
-import { BUSINESS_INFO, PHONE_LINKS, EMAIL_LINK } from '@/data/constants';
+import { Navigation, MapPin } from 'lucide-react';
+import { BUSINESS_INFO, PHONE_LINKS, EMAIL_LINK, SALON_BRANCHES } from '@/data/constants';
 import { Button } from '@/components/Button';
 import { SectionHeading } from '@/components/SectionHeading';
 
@@ -9,42 +9,61 @@ export const LocationSection: React.FC = () => {
     <section className="py-20 md:py-32 bg-[#F8F3ED] border-b border-[#E5D3BF]">
       <div className="container-custom">
         <SectionHeading
-          subtitle="Studio Location"
+          subtitle="Studio Locations"
           title="Visit Us in Guduvanchery"
-          description="Easily accessible from GST Road, situated near NPR Mandapam on Mahalakshmi Nagar Main Road."
+          description="Exclusively serving ladies & kids across two well-appointed salon branches in Guduvancheri, Tamil Nadu."
           align="center"
         />
 
-        {/* Open Editorial Layout — Completely Box-Free */}
+        {/* Open Editorial Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-5xl mx-auto mt-12">
-          {/* Left Column: Address, Telephone, Hours */}
-          <div className="lg:col-span-6 space-y-8">
-            <div className="space-y-2">
+          {/* Left Column: Branches & Contact */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="space-y-4">
               <span className="text-[11px] uppercase tracking-[0.2em] text-[#B8955A] font-semibold block">
-                Atelier Address
+                Two Salon Branches
               </span>
-              <p className="text-xl font-normal text-[#191715]">
-                {BUSINESS_INFO.business_name}
-              </p>
-              <p className="text-sm text-[#2A2623]/80 font-light leading-relaxed">
-                {BUSINESS_INFO.address_line_1}, {BUSINESS_INFO.address_line_2}<br />
-                {BUSINESS_INFO.city}<br />
-                Landmark: {BUSINESS_INFO.landmark}
-              </p>
+
+              {SALON_BRANCHES.map((branch, idx) => (
+                <div
+                  key={branch.id}
+                  className="p-4 rounded-xl bg-white border border-[#E5D3BF] space-y-1.5 shadow-xs"
+                >
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-[#B8955A] shrink-0" />
+                    <span className="text-xs uppercase font-semibold text-[#191715] tracking-wider">
+                      Branch {idx + 1}: {branch.shortName}
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#2A2623]/80 leading-relaxed font-light pl-6">
+                    {branch.address}
+                  </p>
+                  <p className="text-[11px] text-[#A07D45] font-medium pl-6">
+                    Landmark: {branch.landmark}
+                  </p>
+                </div>
+              ))}
+
               <span className="inline-block text-xs uppercase tracking-widest text-[#B8955A] font-medium pt-1">
                 Exclusively For Ladies & Kids
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-[#E5D3BF]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-[#E5D3BF]">
               <div>
                 <span className="text-xs uppercase tracking-wider text-[#2A2623]/60 block mb-1.5 font-medium">
                   Direct Line
                 </span>
-                <a href={PHONE_LINKS.primary} className="block text-sm text-[#191715] hover:text-[#B8955A] font-medium transition-colors">
+                <a
+                  href={PHONE_LINKS.primary}
+                  className="block text-sm text-[#191715] hover:text-[#B8955A] font-medium transition-colors"
+                >
                   +91 {BUSINESS_INFO.primary_phone}
                 </a>
-                <a href={PHONE_LINKS.secondary} className="block text-sm text-[#2A2623]/70 hover:text-[#B8955A] transition-colors mt-0.5">
+                <a
+                  href={PHONE_LINKS.secondary}
+                  className="block text-sm text-[#2A2623]/70 hover:text-[#B8955A] transition-colors mt-0.5"
+                >
                   +91 {BUSINESS_INFO.secondary_phone}
                 </a>
               </div>
@@ -53,16 +72,22 @@ export const LocationSection: React.FC = () => {
                 <span className="text-xs uppercase tracking-wider text-[#2A2623]/60 block mb-1.5 font-medium">
                   Landline & Email
                 </span>
-                <a href={PHONE_LINKS.landline} className="block text-sm text-[#191715] hover:text-[#B8955A] transition-colors">
+                <a
+                  href={PHONE_LINKS.landline}
+                  className="block text-sm text-[#191715] hover:text-[#B8955A] transition-colors"
+                >
                   {BUSINESS_INFO.landline}
                 </a>
-                <a href={EMAIL_LINK} className="block text-xs text-[#2A2623]/70 hover:text-[#B8955A] transition-colors mt-0.5 truncate">
+                <a
+                  href={EMAIL_LINK}
+                  className="block text-xs text-[#2A2623]/70 hover:text-[#B8955A] transition-colors mt-0.5 truncate"
+                >
                   {BUSINESS_INFO.email}
                 </a>
               </div>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-2 flex flex-wrap gap-3">
               <Button
                 href={BUSINESS_INFO.google_maps_url}
                 isExternal
@@ -71,7 +96,15 @@ export const LocationSection: React.FC = () => {
                 icon={<Navigation className="w-4 h-4" />}
                 className="w-full sm:w-auto"
               >
-                Get Directions on Google Maps
+                Get Directions (Branch 1)
+              </Button>
+              <Button
+                href="/book"
+                variant="outline"
+                size="md"
+                className="w-full sm:w-auto"
+              >
+                Book Appointment Online
               </Button>
             </div>
           </div>
@@ -86,8 +119,10 @@ export const LocationSection: React.FC = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-4 left-4 right-4 text-white text-xs flex items-center justify-between">
-                <span className="font-light text-[#E5D3BF]">Near NPR Mandapam, Guduvanchery</span>
-                <span className="text-[#D4B87A] font-medium uppercase tracking-wider text-[10px]">Open Daily 9:30 AM – 8:30 PM</span>
+                <span className="font-light text-[#E5D3BF]">Mahalakshmi Nagar & Madambakkam Rd</span>
+                <span className="text-[#D4B87A] font-medium uppercase tracking-wider text-[10px]">
+                  Open Daily 9:30 AM – 8:30 PM
+                </span>
               </div>
             </div>
           </div>

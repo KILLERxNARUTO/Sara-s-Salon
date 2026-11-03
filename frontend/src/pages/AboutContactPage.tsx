@@ -596,11 +596,20 @@ export const AboutContactPage: React.FC = () => {
                     <span className="text-xs font-semibold uppercase tracking-wider">Sara's Beauty & Bridal Studio</span>
                   </div>
                   <h3 className="font-serif text-xl sm:text-2xl text-white">
-                    No:77, Mahalakshmi Nagar, Main Road, Guduvanchery - 603 202
+                    Two Salon Branches in Guduvancheri
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#E5D3BF]/80 font-light">
-                    Prominent Landmark: <strong className="text-white">Near NPR Kalyana Mandapam</strong> (3 mins from Guduvanchery Station)
-                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#E5D3BF]/90">
+                    <div className="p-3 rounded-xl bg-white/5 border border-white/10">
+                      <strong className="text-[#D4B87A] block font-medium">Branch 1: Mahalakshmi Nagar</strong>
+                      <p className="font-light mt-0.5 text-white/80">No. 77, Mahalakshmi Nagar Main Rd, Guduvancheri 603202</p>
+                      <span className="text-[10px] uppercase tracking-wider text-[#B8955A]">Near NPR Mandapam</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white/5 border border-white/10">
+                      <strong className="text-[#D4B87A] block font-medium">Branch 2: Madambakkam Main Rd</strong>
+                      <p className="font-light mt-0.5 text-white/80">1st Floor, Ranganathan Complex, FF 4, Madambakkam Main Rd 603202</p>
+                      <span className="text-[10px] uppercase tracking-wider text-[#B8955A]">Ranganathan Complex FF 4</span>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Quick Buttons */}

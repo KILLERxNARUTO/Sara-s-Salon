@@ -7,6 +7,7 @@ interface AppointmentNotificationPayload {
   customerName: string;
   phone: string;
   email?: string;
+  branch?: string;
   serviceName: string;
   date: string;
   time: string;
@@ -41,6 +42,7 @@ export async function sendOwnerWhatsAppNotification(
     `*Client:* ${payload.customerName}`,
     `*Phone:* ${payload.phone}`,
     payload.email ? `*Email:* ${payload.email}` : null,
+    payload.branch ? `*Branch:* ${payload.branch}` : null,
     `*Service:* ${payload.serviceName}`,
     `*Date:* ${payload.date}`,
     `*Time:* ${payload.time}`,

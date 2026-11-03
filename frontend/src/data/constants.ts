@@ -2,7 +2,7 @@
 // Sara's Beauty & Bridal Studio — Business Constants
 // ============================================
 
-import type { NavigationLink, SiteSettings, TrustStat, ExperienceOption } from '@/types';
+import type { NavigationLink, SiteSettings, TrustStat, ExperienceOption, SalonBranch } from '@/types';
 
 // ---- Business Information (Source of Truth) ----
 export const BUSINESS_INFO: SiteSettings = {
@@ -26,6 +26,26 @@ export const BUSINESS_INFO: SiteSettings = {
   logo_url: '',
   hero_image_url: '',
 };
+
+
+// ---- Salon Branches (2 Locations) ----
+export const SALON_BRANCHES: SalonBranch[] = [
+  {
+    id: 'branch-mahalakshmi-nagar',
+    name: "Sara's Beauty & Bridal Studio — Mahalakshmi Nagar",
+    shortName: 'Mahalakshmi Nagar Branch',
+    address: "No. 77, Sara's Beauty and Bridal Studio, Mahalakshmi Nagar Main Rd, Mahalakshmi Nagar, Guduvancheri, Nandivaram-Guduvancheri, Tamil Nadu 603202",
+    landmark: 'Near NPR Mandapam',
+    googleMapsUrl: 'https://maps.app.goo.gl/Kfnfiuj1XD1TVM6H7',
+  },
+  {
+    id: 'branch-madambakkam',
+    name: "Sara's Beauty & Bridal Studio — Madambakkam Main Rd",
+    shortName: 'Madambakkam Main Rd Branch',
+    address: 'First Floor, Ranganathan Complex, FF 4, Madambakkam Main Rd, Guduvancheri, Madambakkam, Tamil Nadu 603202',
+    landmark: 'Ranganathan Complex FF 4',
+  },
+];
 
 // ---- Navigation Links ----
 export const NAV_LINKS: NavigationLink[] = [
