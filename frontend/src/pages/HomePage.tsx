@@ -4,7 +4,6 @@ import { TrustSection } from '@/sections/TrustSection';
 import { MarqueeTicker } from '@/components/MarqueeTicker';
 import { SignatureServicesSection } from '@/sections/SignatureServicesSection';
 import { BridalExperienceSection } from '@/sections/BridalExperienceSection';
-import { GalleryPreviewSection } from '@/sections/GalleryPreviewSection';
 import { ExperienceFinderSection } from '@/sections/ExperienceFinderSection';
 import { AboutPreviewSection } from '@/sections/AboutPreviewSection';
 import { PackagesPreviewSection } from '@/sections/PackagesPreviewSection';
@@ -39,42 +38,37 @@ export const HomePage: React.FC = () => {
         <BridalExperienceSection />
       </ScrollReveal>
 
-      {/* 5. Transformation Gallery Preview */}
-      <ScrollReveal direction="scale" delay={100}>
-        <GalleryPreviewSection />
-      </ScrollReveal>
-
-      {/* 6. Interactive Experience Finder */}
+      {/* 5. Interactive Experience Finder */}
       <ScrollReveal direction="up" delay={100}>
         <ExperienceFinderSection />
       </ScrollReveal>
 
-      {/* 7. About Sara's Story */}
+      {/* 6. About Sara's Story */}
       <ScrollReveal direction="right" delay={150}>
         <AboutPreviewSection />
       </ScrollReveal>
 
-      {/* 8. Bridal Packages Preview */}
+      {/* 7. Bridal Packages Preview */}
       <ScrollReveal direction="up" delay={100}>
         <PackagesPreviewSection />
       </ScrollReveal>
 
-      {/* 9. Client Testimonials */}
+      {/* 8. Client Testimonials */}
       <ScrollReveal direction="up" delay={100}>
         <TestimonialsSection />
       </ScrollReveal>
 
-      {/* 10. Instagram Social Stream */}
+      {/* 9. Instagram Social Stream */}
       <ScrollReveal direction="fade" delay={200}>
         <InstagramSection />
       </ScrollReveal>
 
-      {/* 11. Location & Studio Address */}
+      {/* 10. Location & Studio Address */}
       <ScrollReveal direction="up" delay={100}>
         <LocationSection />
       </ScrollReveal>
 
-      {/* 12. Final Booking Call to Action */}
+      {/* 11. Final Booking Call to Action */}
       <ScrollReveal direction="scale" delay={100}>
         <BookingCTASection />
       </ScrollReveal>
